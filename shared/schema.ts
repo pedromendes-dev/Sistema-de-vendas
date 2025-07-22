@@ -1,4 +1,11 @@
-import { pgTable, text, serial, integer, decimal, timestamp } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  serial,
+  integer,
+  decimal,
+  timestamp,
+} from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -6,7 +13,9 @@ export const attendants = pgTable("attendants", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   imageUrl: text("image_url").notNull(),
-  earnings: decimal("earnings", { precision: 10, scale: 2 }).default("0.00").notNull(),
+  earnings: decimal("earnings", { precision: 10, scale: 2 })
+    .default("0.00")
+    .notNull(),
 });
 
 export const sales = pgTable("sales", {
@@ -37,7 +46,9 @@ export const goals = pgTable("goals", {
   title: text("title").notNull(),
   description: text("description"),
   targetValue: decimal("target_value", { precision: 10, scale: 2 }).notNull(),
-  currentValue: decimal("current_value", { precision: 10, scale: 2 }).default("0.00").notNull(),
+  currentValue: decimal("current_value", { precision: 10, scale: 2 })
+    .default("0.00")
+    .notNull(),
   goalType: text("goal_type").notNull(), // 'daily', 'weekly', 'monthly', 'quarterly', 'yearly'
   startDate: timestamp("start_date").notNull(),
   endDate: timestamp("end_date").notNull(),
@@ -100,8 +111,8 @@ export const insertGoalSchema = z.object({
   description: z.string().optional(),
   targetValue: z.string(),
   goalType: z.string(),
-  startDate: z.string().transform(val => new Date(val)),
-  endDate: z.string().transform(val => new Date(val)),
+  startDate: z.string().transform((val) => new Date(val)),
+  endDate: z.string().transform((val) => new Date(val)),
   isActive: z.number().default(1).optional(),
 });
 
@@ -120,17 +131,18 @@ export const insertNotificationSchema = createInsertSchema(notifications).omit({
   createdAt: true,
 });
 
-export type InsertAttendant = z.infer<typeof insertAttendantSchema>;
+export type InsertAttendant = z.infer<z.ZodType<any, any, any>>(insertAttendantSchema as unknown as z.ZodType<any, any, any>);
 export type Attendant = typeof attendants.$inferSelect;
-export type InsertSale = z.infer<typeof insertSaleSchema>;
+export type InsertSale = z.infer<z.ZodType<any, any, any>>(insertSaleSchema as unknown as z.ZodType<any, any, any>);
 export type Sale = typeof sales.$inferSelect;
-export type InsertAdmin = z.infer<typeof insertAdminSchema>;
+export type InsertAdmin = z.infer<z.ZodType<any, any, any>>(insertAdminSchema as unknown as z.ZodType<any, any, any>);
 export type Admin = typeof admins.$inferSelect;
 export type InsertGoal = z.infer<typeof insertGoalSchema>;
 export type Goal = typeof goals.$inferSelect;
-export type InsertAchievement = z.infer<typeof insertAchievementSchema>;
+export type InsertAchievement = z.infer<z.ZodType<any, any, any>>(insertAchievementSchema as unknown as z.ZodType<any, any, any>);
 export type Achievement = typeof achievements.$inferSelect;
-export type InsertLeaderboard = z.infer<typeof insertLeaderboardSchema>;
+export type InsertLeaderboard = z.infer<z.ZodType<any, any, any>>(insertLeaderboardSchema as unknown as z.ZodType<any, any, any>);
 export type Leaderboard = typeof leaderboard.$inferSelect;
-export type InsertNotification = z.infer<typeof insertNotificationSchema>;
+export type InsertNotification = z.infer<z.ZodType<any, any, any>>(insertNotificationSchema as unknown as z.ZodType<any, any, any>);
 export type Notification = typeof notifications.$inferSelect;
+export type InsertAttendant = z.infer<z.ZodType<any, any, any>>(insertAttendantSchema as unknown as z.ZodType<any, any, any>);

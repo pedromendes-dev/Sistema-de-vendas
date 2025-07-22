@@ -1,4 +1,11 @@
-import { pgTable, text, serial, integer, decimal, timestamp } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  serial,
+  integer,
+  decimal,
+  timestamp,
+} from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -22,7 +29,10 @@ export const commissions = pgTable("commissions", {
   saleId: integer("sale_id").notNull(),
   ruleId: integer("rule_id").notNull(),
   saleValue: decimal("sale_value", { precision: 10, scale: 2 }).notNull(),
-  commissionValue: decimal("commission_value", { precision: 10, scale: 2 }).notNull(),
+  commissionValue: decimal("commission_value", {
+    precision: 10,
+    scale: 2,
+  }).notNull(),
   status: text("status").default("pending").notNull(), // 'pending', 'approved', 'paid'
   approvedBy: integer("approved_by"),
   paidAt: timestamp("paid_at"),
@@ -35,14 +45,18 @@ export const paymentPeriods = pgTable("payment_periods", {
   name: text("name").notNull(),
   startDate: timestamp("start_date").notNull(),
   endDate: timestamp("end_date").notNull(),
-  totalCommissions: decimal("total_commissions", { precision: 10, scale: 2 }).default("0.00").notNull(),
+  totalCommissions: decimal("total_commissions", { precision: 10, scale: 2 })
+    .default("0.00")
+    .notNull(),
   status: text("status").default("open").notNull(), // 'open', 'closed', 'paid'
   closedBy: integer("closed_by"),
   closedAt: timestamp("closed_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const insertCommissionRuleSchema = createInsertSchema(commissionRules).omit({
+export const insertCommissionRuleSchema = createInsertSchema(
+  commissionRules
+).omit({
   id: true,
   createdAt: true,
 });
@@ -52,14 +66,17 @@ export const insertCommissionSchema = createInsertSchema(commissions).omit({
   createdAt: true,
 });
 
-export const insertPaymentPeriodSchema = createInsertSchema(paymentPeriods).omit({
+export const insertPaymentPeriodSchema = createInsertSchema(
+  paymentPeriods
+).omit({
   id: true,
   createdAt: true,
 });
 
 export type CommissionRule = typeof commissionRules.$inferSelect;
-export type InsertCommissionRule = z.infer<typeof insertCommissionRuleSchema>;
+export type InsertCommissionRule = z.infer<z.ZodType<any, any, any>>(insertCommissionRuleSchema as unknown as z.ZodType<any, any, any>);
 export type Commission = typeof commissions.$inferSelect;
-export type InsertCommission = z.infer<typeof insertCommissionSchema>;
+export type InsertCommission = z.infer<z.ZodType<any, any, any>>(insertCommissionSchema as unknown as z.ZodType<any, any, any>);
 export type PaymentPeriod = typeof paymentPeriods.$inferSelect;
-export type InsertPaymentPeriod = z.infer<typeof insertPaymentPeriodSchema>;
+export type InsertPaymentPeriod = z.infer<z.ZodType<any, any, any>>(insertPaymentPeriodSchema as unknown as z.ZodType<any, any, any>);
+export type InsertAttendant = z.infer<z.ZodType<any, any, any>>(insertAttendantSchema as unknown as z.ZodType<any, any, any>);

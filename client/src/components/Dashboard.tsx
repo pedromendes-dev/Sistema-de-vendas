@@ -1,7 +1,28 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
-import { TrendingUp, Users, DollarSign, Target, Award, Activity } from "lucide-react";
-import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import {
+  TrendingUp,
+  Users,
+  DollarSign,
+  Target,
+  Award,
+  Activity,
+} from "lucide-react";
+import {
+  BarChart,
+  Bar,
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 import type { Attendant, Sale, Goal } from "@shared/schema";
 
 export default function Dashboard() {
@@ -20,51 +41,77 @@ export default function Dashboard() {
 
   // Calculate metrics
   const totalSales = sales.length;
-  const totalRevenue = sales.reduce((sum, sale) => sum + parseFloat(sale.value), 0);
+  const totalRevenue = sales.reduce(
+    (sum, sale) => sum + parseFloat(sale.value),
+    0
+  );
   const averageTicket = totalSales > 0 ? totalRevenue / totalSales : 0;
-  const activeGoals = goals.filter(g => g.isActive === 1).length;
+  const activeGoals = goals.filter((g) => g.isActive === 1).length;
 
   // Sales by day (last 7 days)
   const salesByDay = (() => {
-    const days = [];
+    const days: { date: string; vendas: number; valor: number }[] = [];
     const today = new Date();
-    
+
     for (let i = 6; i >= 0; i--) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
-      const dateStr = date.toISOString().split('T')[0];
-      
-      const daySales = sales.filter(sale => {
+      const dateStr = date.toISOString().split("T")[0];
+
+      const daySales = sales.filter((sale) => {
         const saleDate = new Date(sale.createdAt);
-        return saleDate.toISOString().split('T')[0] === dateStr;
+        return saleDate.toISOString().split("T")[0] === dateStr;
       });
-      
+
       days.push({
-        date: date.toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric' }),
+        date: date.toLocaleDateString("pt-BR", {
+          weekday: "short",
+          day: "numeric",
+        }),
         vendas: daySales.length,
-        valor: daySales.reduce((sum, sale) => sum + parseFloat(sale.value), 0)
+        valor: daySales.reduce((sum, sale) => sum + parseFloat(sale.value), 0),
       });
     }
-    
+
     return days;
   })();
 
   // Top 5 attendants by revenue
   const topAttendants = attendants
-    .map(att => ({
-      name: att.name.length > 15 ? att.name.substring(0, 15) + '...' : att.name,
-      value: parseFloat(att.earnings)
+    .map((att) => ({
+      name: att.name.length > 15 ? att.name.substring(0, 15) + "..." : att.name,
+      value: parseFloat(att.earnings),
     }))
     .sort((a, b) => b.value - a.value)
     .slice(0, 5);
 
   // Sales distribution by value range
   const salesDistribution = [
-    { name: 'R$ 0-50', value: sales.filter(s => parseFloat(s.value) <= 50).length, color: '#10b981' },
-    { name: 'R$ 51-100', value: sales.filter(s => parseFloat(s.value) > 50 && parseFloat(s.value) <= 100).length, color: '#3b82f6' },
-    { name: 'R$ 101-200', value: sales.filter(s => parseFloat(s.value) > 100 && parseFloat(s.value) <= 200).length, color: '#f59e0b' },
-    { name: 'R$ 200+', value: sales.filter(s => parseFloat(s.value) > 200).length, color: '#ef4444' }
-  ].filter(item => item.value > 0); // Só mostra categorias com vendas
+    {
+      name: "R$ 0-50",
+      value: sales.filter((s) => parseFloat(s.value) <= 50).length,
+      color: "#10b981",
+    },
+    {
+      name: "R$ 51-100",
+      value: sales.filter(
+        (s) => parseFloat(s.value) > 50 && parseFloat(s.value) <= 100
+      ).length,
+      color: "#3b82f6",
+    },
+    {
+      name: "R$ 101-200",
+      value: sales.filter(
+        (s) => parseFloat(s.value) > 100 && parseFloat(s.value) <= 200
+      ).length,
+      color: "#f59e0b",
+    },
+    {
+      name: "R$ 200+",
+      value: sales.filter((s) => parseFloat(s.value) > 200).length,
+      color: "#ef4444",
+    },
+  ].filter((item) => item.value > 0); // Só mostra categorias com vendas
 
   return (
     <div className="space-y-6">
@@ -74,8 +121,12 @@ export default function Dashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Faturamento Total</p>
-                <p className="text-2xl font-bold text-success">R$ {totalRevenue.toFixed(2)}</p>
+                <p className="text-sm text-muted-foreground">
+                  Faturamento Total
+                </p>
+                <p className="text-2xl font-bold text-success">
+                  R$ {totalRevenue.toFixed(2)}
+                </p>
               </div>
               <DollarSign className="h-8 w-8 text-success opacity-50" />
             </div>
@@ -99,7 +150,9 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Ticket Médio</p>
-                <p className="text-2xl font-bold text-warning">R$ {averageTicket.toFixed(2)}</p>
+                <p className="text-2xl font-bold text-warning">
+                  R$ {averageTicket.toFixed(2)}
+                </p>
               </div>
               <TrendingUp className="h-8 w-8 text-warning opacity-50" />
             </div>
@@ -124,7 +177,9 @@ export default function Dashboard() {
         {/* Sales Trend */}
         <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-lg font-semibold">Vendas dos Últimos 7 Dias</CardTitle>
+            <CardTitle className="text-lg font-semibold">
+              Vendas dos Últimos 7 Dias
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -132,24 +187,27 @@ export default function Dashboard() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                 <XAxis dataKey="date" stroke="#9ca3af" />
                 <YAxis stroke="#9ca3af" />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151' }}
-                  labelStyle={{ color: '#9ca3af' }}
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#1f2937",
+                    border: "1px solid #374151",
+                  }}
+                  labelStyle={{ color: "#9ca3af" }}
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="valor" 
-                  stroke="#10b981" 
+                <Line
+                  type="monotone"
+                  dataKey="valor"
+                  stroke="#10b981"
                   strokeWidth={2}
-                  dot={{ fill: '#10b981', r: 4 }}
+                  dot={{ fill: "#10b981", r: 4 }}
                   name="Valor (R$)"
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="vendas" 
-                  stroke="#3b82f6" 
+                <Line
+                  type="monotone"
+                  dataKey="vendas"
+                  stroke="#3b82f6"
                   strokeWidth={2}
-                  dot={{ fill: '#3b82f6', r: 4 }}
+                  dot={{ fill: "#3b82f6", r: 4 }}
                   name="Quantidade"
                 />
               </LineChart>
@@ -160,16 +218,27 @@ export default function Dashboard() {
         {/* Top Attendants */}
         <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-lg font-semibold">Top 5 Atendentes</CardTitle>
+            <CardTitle className="text-lg font-semibold">
+              Top 5 Atendentes
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={topAttendants}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                <XAxis dataKey="name" stroke="#9ca3af" angle={-45} textAnchor="end" height={80} />
+                <XAxis
+                  dataKey="name"
+                  stroke="#9ca3af"
+                  angle={-45}
+                  textAnchor="end"
+                  height={80}
+                />
                 <YAxis stroke="#9ca3af" />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151' }}
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#1f2937",
+                    border: "1px solid #374151",
+                  }}
                   formatter={(value: any) => `R$ ${value.toFixed(2)}`}
                 />
                 <Bar dataKey="value" fill="#10b981" />
@@ -181,7 +250,9 @@ export default function Dashboard() {
         {/* Sales Distribution */}
         <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-lg font-semibold">Distribuição de Vendas por Valor</CardTitle>
+            <CardTitle className="text-lg font-semibold">
+              Distribuição de Vendas por Valor
+            </CardTitle>
           </CardHeader>
           <CardContent>
             {salesDistribution.length > 0 ? (
@@ -194,15 +265,23 @@ export default function Dashboard() {
                     outerRadius={100}
                     fill="#8884d8"
                     dataKey="value"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) =>
+                      `${name}: ${percent ? (percent * 100).toFixed(0) : "0"}%`
+                    }
                   >
                     {salesDistribution.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151' }}
-                    formatter={(value: any) => [`${value} vendas`, 'Quantidade']}
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "#1f2937",
+                      border: "1px solid #374151",
+                    }}
+                    formatter={(value: any) => [
+                      `${value} vendas`,
+                      "Quantidade",
+                    ]}
                   />
                   <Legend />
                 </PieChart>
@@ -218,29 +297,43 @@ export default function Dashboard() {
         {/* Goal Progress */}
         <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-lg font-semibold">Progresso das Metas</CardTitle>
+            <CardTitle className="text-lg font-semibold">
+              Progresso das Metas
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {goals.filter(g => g.isActive === 1).slice(0, 5).map(goal => {
-                const progress = (parseFloat(goal.currentValue) / parseFloat(goal.targetValue)) * 100;
-                const attendant = attendants.find(a => a.id === goal.attendantId);
-                
-                return (
-                  <div key={goal.id} className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">{attendant?.name || 'Desconhecido'} - {goal.title}</span>
-                      <span className="font-medium">{progress.toFixed(0)}%</span>
+              {goals
+                .filter((g) => g.isActive === 1)
+                .slice(0, 5)
+                .map((goal) => {
+                  const progress =
+                    (parseFloat(goal.currentValue) /
+                      parseFloat(goal.targetValue)) *
+                    100;
+                  const attendant = attendants.find(
+                    (a) => a.id === goal.attendantId
+                  );
+
+                  return (
+                    <div key={goal.id} className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">
+                          {attendant?.name || "Desconhecido"} - {goal.title}
+                        </span>
+                        <span className="font-medium">
+                          {progress.toFixed(0)}%
+                        </span>
+                      </div>
+                      <div className="w-full bg-secondary rounded-full h-2">
+                        <div
+                          className="bg-success h-2 rounded-full transition-all duration-300"
+                          style={{ width: `${Math.min(progress, 100)}%` }}
+                        />
+                      </div>
                     </div>
-                    <div className="w-full bg-secondary rounded-full h-2">
-                      <div 
-                        className="bg-success h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${Math.min(progress, 100)}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </CardContent>
         </Card>

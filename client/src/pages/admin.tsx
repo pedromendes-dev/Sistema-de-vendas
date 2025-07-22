@@ -331,7 +331,9 @@ export default function Admin() {
   }, []);
 
   // Data queries
-  const { data: attendants = [], isLoading: attendantsLoading } = useQuery({
+  const { data: attendants = [], isLoading: attendantsLoading } = useQuery<
+    Attendant[]
+  >({
     queryKey: ["/api/attendants"],
     enabled: isAuthenticated,
   });
@@ -2261,7 +2263,7 @@ export default function Admin() {
                                       <p className="text-secondary-light text-sm">
                                         Cadastrado em{" "}
                                         {new Date(
-                                          (attendant as any).createdAt
+                                          (selectedAttendant as any).createdAt
                                         ).toLocaleDateString("pt-BR")}
                                       </p>
                                     </div>
@@ -3405,7 +3407,7 @@ export default function Admin() {
                     <p className="text-secondary-light">
                       Membro desde{" "}
                       {new Date(
-                        (attendant as any).createdAt
+                        (selectedAttendant as any).createdAt
                       ).toLocaleDateString("pt-BR")}
                     </p>
                   </div>
@@ -3647,7 +3649,7 @@ export default function Admin() {
                     <p className="text-secondary-light text-sm">
                       Cadastrado em{" "}
                       {new Date(
-                        (attendant as any).createdAt
+                        (selectedAttendant as any).createdAt
                       ).toLocaleDateString("pt-BR")}
                     </p>
                   </div>
@@ -4062,7 +4064,9 @@ export default function Admin() {
                 <div className="flex justify-between items-center">
                   <span className="text-secondary-light">Data:</span>
                   <span className="text-primary-light">
-                    {new Date(sale.createdAt).toLocaleDateString("pt-BR")}
+                    {new Date(selectedSale.createdAt).toLocaleDateString(
+                      "pt-BR"
+                    )}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
