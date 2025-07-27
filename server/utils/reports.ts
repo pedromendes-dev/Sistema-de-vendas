@@ -1,6 +1,6 @@
 import type { Sale, Attendant } from "@shared/schema";
 import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
+// Removendo dependência do locale pt-BR
 
 export interface SalesReport {
   period: string;
@@ -79,7 +79,7 @@ export function generateSalesReport(
     .sort((a, b) => a.date.localeCompare(b.date));
 
   return {
-    period: `${format(startDate, "dd/MM/yyyy", { locale: ptBR })} - ${format(endDate, "dd/MM/yyyy", { locale: ptBR })}`,
+    period: `${format(startDate, "dd/MM/yyyy")} - ${format(endDate, "dd/MM/yyyy")}`,
     totalSales,
     totalValue,
     averageTicket,
