@@ -8,6 +8,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+import { ZodType } from "zod";
 
 // Tabela de configuração de comissões
 export const commissionRules = pgTable("commission_rules", {
@@ -74,9 +75,12 @@ export const insertPaymentPeriodSchema = createInsertSchema(
 });
 
 export type CommissionRule = typeof commissionRules.$inferSelect;
-export type InsertCommissionRule = z.infer<z.ZodType<any, any, any>>(insertCommissionRuleSchema as unknown as z.ZodType<any, any, any>);
+export type InsertCommissionRule = z.infer<
+  ReturnType<typeof createInsertSchema>
+>;
 export type Commission = typeof commissions.$inferSelect;
-export type InsertCommission = z.infer<z.ZodType<any, any, any>>(insertCommissionSchema as unknown as z.ZodType<any, any, any>);
+export type InsertCommission = z.infer<ReturnType<typeof createInsertSchema>>;
 export type PaymentPeriod = typeof paymentPeriods.$inferSelect;
-export type InsertPaymentPeriod = z.infer<z.ZodType<any, any, any>>(insertPaymentPeriodSchema as unknown as z.ZodType<any, any, any>);
-export type InsertAttendant = z.infer<z.ZodType<any, any, any>>(insertAttendantSchema as unknown as z.ZodType<any, any, any>);
+export type InsertPaymentPeriod = z.infer<
+  ReturnType<typeof createInsertSchema>
+>;

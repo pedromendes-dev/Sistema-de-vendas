@@ -8,6 +8,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+import { ZodType } from "zod";
 
 export const attendants = pgTable("attendants", {
   id: serial("id").primaryKey(),
@@ -131,18 +132,17 @@ export const insertNotificationSchema = createInsertSchema(notifications).omit({
   createdAt: true,
 });
 
-export type InsertAttendant = z.infer<z.ZodType<any, any, any>>(insertAttendantSchema as unknown as z.ZodType<any, any, any>);
+export type InsertAttendant = z.infer<ReturnType<typeof createInsertSchema>>;
 export type Attendant = typeof attendants.$inferSelect;
-export type InsertSale = z.infer<z.ZodType<any, any, any>>(insertSaleSchema as unknown as z.ZodType<any, any, any>);
+export type InsertSale = z.infer<ReturnType<typeof createInsertSchema>>;
 export type Sale = typeof sales.$inferSelect;
-export type InsertAdmin = z.infer<z.ZodType<any, any, any>>(insertAdminSchema as unknown as z.ZodType<any, any, any>);
+export type InsertAdmin = z.infer<ReturnType<typeof createInsertSchema>>;
 export type Admin = typeof admins.$inferSelect;
 export type InsertGoal = z.infer<typeof insertGoalSchema>;
 export type Goal = typeof goals.$inferSelect;
-export type InsertAchievement = z.infer<z.ZodType<any, any, any>>(insertAchievementSchema as unknown as z.ZodType<any, any, any>);
+export type InsertAchievement = z.infer<ReturnType<typeof createInsertSchema>>;
 export type Achievement = typeof achievements.$inferSelect;
-export type InsertLeaderboard = z.infer<z.ZodType<any, any, any>>(insertLeaderboardSchema as unknown as z.ZodType<any, any, any>);
+export type InsertLeaderboard = z.infer<ReturnType<typeof createInsertSchema>>;
 export type Leaderboard = typeof leaderboard.$inferSelect;
-export type InsertNotification = z.infer<z.ZodType<any, any, any>>(insertNotificationSchema as unknown as z.ZodType<any, any, any>);
+export type InsertNotification = z.infer<ReturnType<typeof createInsertSchema>>;
 export type Notification = typeof notifications.$inferSelect;
-export type InsertAttendant = z.infer<z.ZodType<any, any, any>>(insertAttendantSchema as unknown as z.ZodType<any, any, any>);
