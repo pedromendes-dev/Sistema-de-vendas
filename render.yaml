@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: sistema-de-vendas
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5050
+      - key: DATABASE_URL
+        sync: false
+    healthCheckPath: /api/health
+    autoDeploy: true
+    disk:
+      name: data
+      mountPath: /opt/render/project/src/backups
+      sizeGB: 1

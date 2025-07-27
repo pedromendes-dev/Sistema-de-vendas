@@ -13,6 +13,7 @@ import { z } from "zod";
 import { registerReportRoutes } from "./routes/reports";
 import { backupManager } from "./utils/backup";
 import { verifyPassword } from "./utils/auth";
+import healthRouter from "./routes/health";
 
 // WebSocket clients storage
 const wsClients = new Set<WebSocket>();
@@ -46,6 +47,9 @@ export function broadcastPerformanceUpdate(data: any) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Register health route
+  app.use('/api', healthRouter);
+  
   // Register report routes
   registerReportRoutes(app);
   // Get all attendants
