@@ -9,7 +9,7 @@ import {
   admins,
 } from "@shared/schema";
 import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
+// Removendo dependência do locale pt-BR
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -105,9 +105,7 @@ export class BackupManager {
     };
 
     // Generate filename
-    const filename = `backup_${format(new Date(), "yyyy-MM-dd_HH-mm-ss", {
-      locale: ptBR,
-    })}.json`;
+    const filename = `backup_${format(new Date(), "yyyy-MM-dd_HH-mm-ss")}.json`;
     const filepath = path.join(this.backupDir, filename);
 
     // Save backup to file

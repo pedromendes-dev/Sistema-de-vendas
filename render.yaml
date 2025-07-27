@@ -17,3 +17,10 @@ services:
       name: data
       mountPath: /opt/render/project/src/backups
       sizeGB: 1
+    ipAllowList:
+      - source: 35.160.120.126/32
+        description: "Render Static IP 1"
+      - source: 44.233.151.27/32
+        description: "Render Static IP 2"
+      - source: 34.211.200.85/32
+        description: "Render Static IP 3"
