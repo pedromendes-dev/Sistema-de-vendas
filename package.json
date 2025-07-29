@@ -6,9 +6,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsx server/index.ts",
-    "build": "npm run build:client && npm run build:ensure-dist",
+    "build": "npm run build:client && npm run build:ensure-dist && npm run build:verify",
     "build:client": "vite build",
-    "build:ensure-dist": "node -e \"const fs = require('fs'); const path = require('path'); if (!fs.existsSync('dist')) { console.log('Creating dist directory...'); fs.mkdirSync('dist', {recursive: true}); fs.writeFileSync('dist/index.html', '<!DOCTYPE html><html><head><title>Loading...</title></head><body><h1>Building...</h1></body></html>'); }\"",
+    "build:ensure-dist": "node -e \"const fs = require('fs'); const path = require('path'); console.log('Checking dist directory...'); if (!fs.existsSync('dist')) { console.log('Creating dist directory...'); fs.mkdirSync('dist', {recursive: true}); fs.writeFileSync('dist/index.html', '<!DOCTYPE html><html><head><title>Loading...</title></head><body><h1>Building...</h1></body></html>'); } else { console.log('dist directory exists'); }\"",
+    "build:verify": "node -e \"const fs = require('fs'); console.log('Build verification:'); console.log('dist exists:', fs.existsSync('dist')); if (fs.existsSync('dist')) { console.log('dist contents:', fs.readdirSync('dist')); }\"",
     "start": "cross-env NODE_ENV=production tsx --no-warnings server/index.ts",
     "db:setup": "node database/scripts/setup-database.js",
     "db:migrate": "node database/scripts/apply-migrations.js",
