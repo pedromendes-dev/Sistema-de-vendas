@@ -1,44 +1,69 @@
-# Sistema de Controle de Vendas
+# 🚀 SISTEMA-DE-VENDAS
 
-Um sistema completo para gerenciar vendas, atendentes e metas de forma simples e eficiente.
+_Impulsione vendas, acelere resultados, transforme seu negócio!_
 
-## O que é?
+[![last commit](https://img.shields.io/github/last-commit/SEU_USUARIO/SEU_REPO?style=flat-square)]()
+[![typescript](https://img.shields.io/badge/typescript-80.9%25-blue?style=flat-square)]()
+[![languages](https://img.shields.io/badge/languages-5-informational?style=flat-square)]()
 
-Este é um sistema que ajuda você a controlar as vendas da sua equipe. Ele permite cadastrar atendentes, registrar vendas, definir metas e acompanhar o desempenho de cada pessoa. Tudo isso com uma interface moderna e fácil de usar.
+---
 
-## Principais funcionalidades
+## 📋 Sumário
 
-### Para o gestor:
+- [Sobre](#sobre)
+- [Funcionalidades](#funcionalidades)
+- [Tecnologias](#tecnologias)
+- [Como usar](#como-usar)
+- [Configuração do banco](#configuração-do-banco)
+- [Documentação](#documentação)
+- [Suporte](#suporte)
 
-- **Cadastrar atendentes** com foto e informações
-- **Registrar vendas** de forma rápida e organizada
-- **Definir metas** para cada atendente
-- **Acompanhar ranking** e performance da equipe
-- **Ver relatórios** e estatísticas em tempo real
-- **Configurar o sistema** conforme suas necessidades
+---
 
-### Para os atendentes:
+## 📝 Sobre
 
-- **Visualizar suas vendas** e ganhos
-- **Acompanhar metas** e progresso
-- **Ver conquistas** e reconhecimentos
-- **Acessar histórico** de vendas
+Sistema completo para gerenciar vendas, atendentes e metas de forma simples, eficiente e gamificada.
 
-## Como usar
+---
 
-### Primeira vez:
+## 🖼️ Demonstração
 
-1. Instale as dependências: `npm install`
-2. Configure o banco de dados: `npm run db:setup`
-3. Inicie o sistema: `npm run dev`
-4. Acesse no navegador e faça login como administrador
+> _Adicione aqui um screenshot ou GIF do sistema para ilustrar a interface._
 
-### Login padrão:
+---
 
-- **Usuário:** administrador
-- **Senha:** root123
+## ✨ Funcionalidades
 
-### Comandos úteis:
+- 👤 Cadastro de atendentes com foto
+- 💰 Registro e histórico de vendas
+- 🎯 Definição e acompanhamento de metas
+- 🏆 Ranking e conquistas
+- 📊 Relatórios em tempo real
+- ⚙️ Configurações avançadas
+- 🔒 Segurança e backup automático
+
+---
+
+## 🛠 Tecnologias
+
+**Frontend:** React, TypeScript, Tailwind CSS, Vite  
+**Backend:** Express.js, PostgreSQL, Drizzle ORM  
+**Ferramentas:** Zod, React Query, Lucide React
+
+---
+
+## 🚀 Como usar
+
+```bash
+npm install
+npm run db:setup
+npm run dev
+```
+
+Acesse: `http://localhost:3000`  
+Login padrão: **administrador** / **root123**
+
+### Comandos úteis
 
 ```bash
 npm run dev          # Rodar em desenvolvimento
@@ -47,31 +72,30 @@ npm run db:optimize  # Otimizar banco de dados
 npm run db:test      # Testar funcionalidades
 ```
 
-## Tecnologias usadas
+---
 
-### Frontend (interface):
+## 🗄️ Configuração do banco
 
-- **React** - Para criar a interface
-- **TypeScript** - Para código mais seguro
-- **Tailwind CSS** - Para estilização moderna
-- **Vite** - Para desenvolvimento rápido
+1. Instale o PostgreSQL
+2. Crie o banco e usuário:
+   ```sql
+   CREATE DATABASE vendas_db;
+   CREATE USER vendas_user WITH PASSWORD 'sua_senha';
+   GRANT ALL PRIVILEGES ON DATABASE vendas_db TO vendas_user;
+   ```
+3. Configure o arquivo `.env`:
+   ```env
+   DATABASE_URL=postgresql://vendas_user:sua_senha@localhost:5432/vendas_db
+   PORT=3000
+   NODE_ENV=development
+   ```
 
-### Backend (servidor):
+---
 
-- **Express.js** - Para criar a API
-- **PostgreSQL** - Para armazenar os dados
-- **Drizzle ORM** - Para trabalhar com o banco
-
-### Ferramentas:
-
-- **Zod** - Para validar dados
-- **React Query** - Para gerenciar estado
-- **Lucide React** - Para ícones
-
-## Estrutura do projeto
+## 🏗️ Estrutura do projeto
 
 ```
-📁 Sistema/
+📁 Website/
 ├── 📁 client/          # Interface (React)
 │   ├── 📁 src/
 │   │   ├── 📁 components/   # Componentes da tela
@@ -89,120 +113,23 @@ npm run db:test      # Testar funcionalidades
 └── 📁 shared/          # Código compartilhado
 ```
 
-## Configuração do banco
+---
 
-### 1. Instalar PostgreSQL
+## 📚 Documentação
 
-- **Windows:** Baixe em postgresql.org
-- **Mac:** `brew install postgresql`
-- **Linux:** `sudo apt install postgresql`
-
-### 2. Criar banco de dados
-
-```sql
-CREATE DATABASE vendas_db;
-CREATE USER vendas_user WITH PASSWORD 'sua_senha';
-GRANT ALL PRIVILEGES ON DATABASE vendas_db TO vendas_user;
-```
-
-### 3. Configurar arquivo .env
-
-```env
-DATABASE_URL=postgresql://vendas_user:sua_senha@localhost:5432/vendas_db
-PORT=3000
-NODE_ENV=development
-```
-
-## Funcionalidades detalhadas
-
-### Gestão de Atendentes
-
-- Cadastro com foto e informações pessoais
-- Controle de status (ativo/inativo)
-- Histórico completo de vendas
-- Estatísticas de performance
-- Exportação de dados
-
-### Registro de Vendas
-
-- Seleção rápida do atendente
-- Captura de dados do cliente
-- Cálculo automático de comissões
-- Validação de valores
-- Histórico detalhado
-
-### Sistema de Metas
-
-- Definição de metas individuais
-- Acompanhamento de progresso
-- Notificações de conquistas
-- Relatórios de performance
-
-### Painel Administrativo
-
-- Login seguro
-- Controle total do sistema
-- Configurações personalizáveis
-- Relatórios e exportações
-- Backup automático
-
-## Responsividade
-
-O sistema funciona perfeitamente em:
-
-- **Celulares** (320px+)
-- **Tablets** (768px+)
-- **Computadores** (1024px+)
-- **Telas grandes** (1920px+)
-
-## Segurança
-
-- Senhas criptografadas
-- Validação de dados
-- Proteção contra ataques
-- Headers de segurança
-
-## Performance
-
-- Carregamento rápido
-- Cache inteligente
-- Otimização de imagens
-- Bundle otimizado
-
-## Deploy
-
-O sistema está pronto para ser publicado em:
-
-- Vercel
-- Netlify
-- Railway
-- Heroku
-
-Basta configurar as variáveis de ambiente e fazer o deploy.
-
-## Documentação disponível
-
-### 📚 Guias práticos:
-
-- **[COMO_USAR.md](COMO_USAR.md)** - Guia rápido de como usar o sistema
-- **[database-config.md](database-config.md)** - Como configurar o banco de dados
-- **[ORGANIZACAO_PROJETO.md](ORGANIZACAO_PROJETO.md)** - Como o projeto está organizado
-
-### 📖 Para começar:
-
-1. Leia **[COMO_USAR.md](COMO_USAR.md)** para entender as funcionalidades
-2. Siga **[database-config.md](database-config.md)** para configurar o banco
-3. Use os comandos do **[ORGANIZACAO_PROJETO.md](ORGANIZACAO_PROJETO.md)** para manutenção
-
-## Suporte
-
-Se encontrar algum problema:
-
-1. Verifique se o PostgreSQL está rodando
-2. Confirme as configurações no arquivo .env
-3. Execute `npm run db:test` para verificar o banco
-4. Consulte a documentação em docs/
+- [Guia rápido de uso](COMO_USAR.md)
+- [Configuração do banco](database-config.md)
+- [Organização do projeto](ORGANIZACAO_PROJETO.md)
 
 ---
 
-**Sistema desenvolvido para facilitar o controle de vendas e motivar a equipe através de gamificação e acompanhamento de metas.**
+## 🆘 Suporte
+
+1. Verifique se o PostgreSQL está rodando
+2. Confirme as configurações no arquivo `.env`
+3. Execute `npm run db:test`
+4. Consulte a documentação em `/docs`
+
+---
+
+> Sistema desenvolvido para facilitar o controle de vendas e motivar a equipe através de gamificação e acompanhamento de metas.
