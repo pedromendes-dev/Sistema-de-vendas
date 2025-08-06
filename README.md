@@ -1,3 +1,5 @@
+<!-- cSpell:ignore gamificada Drizzle setup PRIVILEGES postgresql pages migrations gamificação -->
+
 # 🚀 SISTEMA-DE-VENDAS
 
 ![Screenshot do Sistema](assets/imgs/image.png)
@@ -23,15 +25,7 @@ _Impulsione vendas, acelere resultados, transforme seu negócio!_
 
 ## 📝 Sobre
 
-Sistema completo para gerenciar vendas, atendentes e metas de forma simples, eficiente e gamificada.
-
----
-
-## 🖼️ Demonstração
-
-![Screenshot do Sistema](assets/imgs/image.png)
-
----
+## Sistema completo para gerenciar vendas, atendentes e metas de forma simples, eficiente e gamificada.
 
 ## ✨ Funcionalidades
 
