@@ -41,6 +41,7 @@ Website/
 - **tests/**: Scripts de teste automatizado.
 
 ## Observações
+
 - Não versionar a pasta `node_modules`.
 - Manter a documentação sempre atualizada.
 

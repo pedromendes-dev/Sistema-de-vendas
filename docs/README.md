@@ -1,5 +1,6 @@
 # 🚀 SISTEMA-DE-VENDAS
 
+![Screenshot do Sistema](assets/imgs/image.png)
 _Impulsione vendas, acelere resultados, transforme seu negócio!_
 
 [![last commit](https://img.shields.io/github/last-commit/SEU_USUARIO/SEU_REPO?style=flat-square)]()
