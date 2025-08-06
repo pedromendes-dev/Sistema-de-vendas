@@ -28,7 +28,7 @@ Sistema completo para gerenciar vendas, atendentes e metas de forma simples, efi
 
 ## 🖼️ Demonstração
 
-> _Adicione aqui um screenshot ou GIF do sistema para ilustrar a interface._
+![Screenshot do Sistema](../assets/imgs/image.png)
 
 ---
 
