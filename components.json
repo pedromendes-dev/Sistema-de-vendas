@@ -16,5 +16,6 @@
       "ui": "@/components/ui",
       "lib": "@/lib",
       "hooks": "@/hooks"
-    }
+    },
+    "_comment": "Configuração personalizada para o Sistema de Vendas - Pedro Mendes"
 }
