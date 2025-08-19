@@ -1,43 +1,84 @@
-# Dependencies
+# ========================================
+# SISTEMA DE VENDAS - GIT IGNORE
+# ========================================
+# Desenvolvido por Pedro Mendes
+
+# ========================================
+# DEPENDÊNCIAS
+# ========================================
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Environment variables
+# ========================================
+# BUILD E DISTRIBUIÇÃO
+# ========================================
+dist/
+build/
+out/
+.next/
+.nuxt/
+.vuepress/dist
+.serverless/
+.fusebox/
+.dynamodb/
+
+# ========================================
+# CACHE
+# ========================================
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# ========================================
+# COBERTURA DE TESTES
+# ========================================
+coverage/
+*.lcov
+.nyc_output
+junit.xml
+
+# ========================================
+# LOGS
+# ========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ========================================
+# BACKUPS
+# ========================================
+backups/
+*.backup
+*.bak
+*.tmp
+*.temp
+
+# ========================================
+# ARQUIVOS DE CONFIGURAÇÃO LOCAL
+# ========================================
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.env.staging
 
-# Build outputs
-/dist/
-build/
-*.tsbuildinfo
-
-# Runtime data
-pids/
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory used by tools like istanbul
-coverage/
-*.lcov
-
-# nyc test coverage
-.nyc_output
-
-# Logs
-logs/
-*.log
-
-# Database
-*.db
-*.sqlite
-
-# OS generated files
+# ========================================
+# ARQUIVOS DO SISTEMA
+# ========================================
 .DS_Store
 .DS_Store?
 ._*
@@ -46,31 +87,53 @@ logs/
 ehthumbs.db
 Thumbs.db
 
-# IDE files
+# ========================================
+# IDEs E EDITORES
+# ========================================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# Temporary files
-tmp/
-temp/
+# ========================================
+# ARQUIVOS TEMPORÁRIOS
+# ========================================
+*.tmp
+*.temp
+*.pid
+*.seed
+*.pid.lock
 
-# Replit specific
-.replit
-replit.nix
+# ========================================
+# ARQUIVOS DE LOCK
+# ========================================
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
-# Backup files
-*.backup
-*.bak
-backups/
-*.backup.json
-*.backup.sql
-latest_backup.json
+# ========================================
+# ARQUIVOS DE MIGRAÇÃO
+# ========================================
+database/migrations/*.sql
+!database/migrations/meta/
 
-# Package lock files (choose one)
-# npm
-# package-lock.json
-# yarn
-# yarn.lock
+# ========================================
+# ARQUIVOS DE TESTE
+# ========================================
+test-results/
+playwright-report/
+test-results.xml
+
+# ========================================
+# ARQUIVOS DE PERFORMANCE
+# ========================================
+lighthouse-report.html
+bundle-analyzer-report.html
+
+# ========================================
+# ARQUIVOS DE DEPLOY
+# ========================================
+.vercel
+.netlify
+.railway

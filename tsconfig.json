@@ -1,27 +1,98 @@
 {
-  "include": ["client/src/**/*", "shared/**/*", "server/**/*"],
-  "exclude": ["node_modules", "build", "dist", "**/*.test.ts"],
   "compilerOptions": {
-    "incremental": true,
-    "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
-    "noEmit": false,
-    "outDir": "./dist",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "target": "ESNext",
-    "strict": true,
-    "moduleDetection": "force",
-    "declaration": true,
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
     "jsx": "react-jsx",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "allowImportingTsExtensions": false,
+    "incremental": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./client/src/*"],
-      "@shared/*": ["./shared/*"]
+      "@shared/*": ["./shared/*"],
+      "@server/*": ["./server/*"],
+      "@tests/*": ["./tests/*"],
+      "@utils/*": ["./utils/*"],
+      "@components/*": ["./client/src/components/*"],
+      "@pages/*": ["./client/src/pages/*"],
+      "@hooks/*": ["./client/src/hooks/*"],
+      "@lib/*": ["./client/src/lib/*"],
+      "@ui/*": ["./client/src/components/ui/*"],
+      "@types/*": ["./shared/types/*"],
+      "@validation/*": ["./shared/validation/*"],
+      "@constants/*": ["./shared/constants/*"],
+      "@utils/*": ["./shared/utils/*"]
     },
-    "noImplicitAny": false
-  }
+    "types": [
+      "node",
+      "vitest/globals",
+      "jest",
+      "react",
+      "react-dom"
+    ],
+    "plugins": [
+      {
+        "name": "typescript-eslint"
+      }
+    ]
+  },
+  "include": [
+    "client/src/**/*",
+    "server/**/*",
+    "shared/**/*",
+    "tests/**/*",
+    "utils/**/*",
+    "*.ts",
+    "*.tsx",
+    "*.js",
+    "*.jsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    "backups",
+    "logs",
+    "*.min.js",
+    "*.bundle.js"
+  ],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "references": [
+    {
+      "path": "./client"
+    },
+    {
+      "path": "./server"
+    },
+    {
+      "path": "./shared"
+    }
+  ]
 }

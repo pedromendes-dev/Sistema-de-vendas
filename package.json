@@ -5,17 +5,130 @@
   "description": "Sistema de gestão de vendas desenvolvido por Pedro Mendes - Controle de atendentes, vendas, metas e ranking gamificado",
   "main": "index.js",
   "scripts": {
+    // ========================================
+    // SCRIPTS DE DESENVOLVIMENTO
+    // ========================================
     "dev": "cross-env NODE_ENV=development tsx server/index.ts",
-    "build": "vite build",
+    "dev:client": "vite",
+    "dev:server": "cross-env NODE_ENV=development tsx --watch server/index.ts",
+    "dev:full": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    
+    // ========================================
+    // SCRIPTS DE BUILD
+    // ========================================
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build",
+    "build:server": "tsc -p tsconfig.server.json",
+    "build:check": "tsc --noEmit",
+    
+    // ========================================
+    // SCRIPTS DE PRODUÇÃO
+    // ========================================
     "start": "cross-env NODE_ENV=production tsx --no-warnings server/index.ts",
+    "start:prod": "cross-env NODE_ENV=production node dist/server/index.js",
+    "preview": "vite preview",
+    
+    // ========================================
+    // SCRIPTS DE BANCO DE DADOS
+    // ========================================
     "db:setup": "node database/scripts/setup-database.js",
     "db:migrate": "node database/scripts/apply-migrations.js",
     "db:seed": "node database/scripts/seed-database.js",
     "db:optimize": "node database/scripts/optimize-database.js",
     "db:health": "node database/scripts/database-health-check.js",
-    "db:test": "node database/scripts/test-all-operations.js"
+    "db:test": "node database/scripts/test-all-operations.js",
+    "db:backup": "node database/scripts/backup-database.js",
+    "db:restore": "node database/scripts/restore-database.js",
+    "db:reset": "npm run db:backup && node database/scripts/reset-database.js",
+    
+    // ========================================
+    // SCRIPTS DE TESTES
+    // ========================================
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:unit": "vitest run --reporter=verbose",
+    "test:integration": "vitest run --reporter=verbose tests/integration/",
+    "test:e2e": "playwright test",
+    
+    // ========================================
+    // SCRIPTS DE QUALIDADE DE CÓDIGO
+    // ========================================
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "lint:check": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit",
+    
+    // ========================================
+    // SCRIPTS DE MANUTENÇÃO
+    // ========================================
+    "clean": "rimraf dist build coverage node_modules/.cache",
+    "clean:all": "npm run clean && rimraf node_modules package-lock.json",
+    "reinstall": "npm run clean:all && npm install",
+    "update": "npm update && npm audit fix",
+    "audit": "npm audit",
+    "audit:fix": "npm audit fix",
+    
+    // ========================================
+    // SCRIPTS DE DEPLOY
+    // ========================================
+    "deploy:check": "npm run build:check && npm run test:run && npm run lint:check",
+    "deploy:prepare": "npm run clean && npm run build && npm run test:run",
+    "deploy:staging": "npm run deploy:prepare && echo 'Deploy para staging concluído'",
+    "deploy:production": "npm run deploy:prepare && echo 'Deploy para produção concluído'",
+    
+    // ========================================
+    // SCRIPTS DE DOCUMENTAÇÃO
+    // ========================================
+    "docs:generate": "typedoc --out docs/api src/",
+    "docs:serve": "npx serve docs/api",
+    "docs:build": "npm run docs:generate",
+    
+    // ========================================
+    // SCRIPTS DE MONITORAMENTO
+    // ========================================
+    "monitor:start": "node utils/monitor.js",
+    "monitor:logs": "tail -f logs/app.log",
+    "monitor:health": "curl http://localhost:3000/api/health",
+    
+    // ========================================
+    // SCRIPTS DE UTILITÁRIOS
+    // ========================================
+    "utils:show-structure": "node utils/show-structure.js",
+    "utils:backup": "node utils/backup-manager.js",
+    "utils:cleanup": "node utils/cleanup.js",
+    
+    // ========================================
+    // SCRIPTS DE DESENVOLVIMENTO AVANÇADO
+    // ========================================
+    "dev:debug": "cross-env NODE_ENV=development DEBUG=* tsx server/index.ts",
+    "dev:profile": "cross-env NODE_ENV=development tsx --prof server/index.ts",
+    "dev:inspect": "cross-env NODE_ENV=development tsx --inspect server/index.ts",
+    
+    // ========================================
+    // SCRIPTS DE PERFORMANCE
+    // ========================================
+    "perf:analyze": "npm run build && npx webpack-bundle-analyzer dist/stats.json",
+    "perf:lighthouse": "npx lighthouse http://localhost:3000 --output html --output-path ./lighthouse-report.html",
+    "perf:budget": "npx bundlesize"
   },
-  "keywords": ["vendas", "gestão", "atendentes", "metas", "ranking", "react", "typescript", "postgresql"],
+  "keywords": [
+    "vendas",
+    "gestão",
+    "atendentes",
+    "metas",
+    "ranking",
+    "react",
+    "typescript",
+    "postgresql",
+    "gamificação",
+    "dashboard",
+    "relatórios"
+  ],
   "author": "Pedro Mendes",
   "license": "MIT",
   "dependencies": {
@@ -37,7 +150,8 @@
     "@radix-ui/react-toast": "^1.2.14",
     "@tailwindcss/typography": "^0.5.16",
     "@tanstack/react-query": "^5.83.0",
-    "bcrypt": "^5.1.1",
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "cors": "^2.8.5",
     "date-fns": "^2.30.0",
@@ -63,7 +177,6 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.19",
     "@types/express": "^4.17.23",
     "@types/node": "^20.19.9",
